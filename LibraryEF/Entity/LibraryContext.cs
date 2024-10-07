@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entity.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Repository;
+namespace Entity;
 
 public class LibraryContext : DbContext
 {
@@ -27,7 +28,7 @@ public class LibraryContext : DbContext
     public DbSet<Reader> Readers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    { 
+    {
         optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=Library;Integrated Security=True;Encrypt=False");
         //optionsBuilder.LogTo(Console.WriteLine);
         base.OnConfiguring(optionsBuilder);

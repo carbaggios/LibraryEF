@@ -1,9 +1,7 @@
-﻿namespace Repository;
+﻿namespace Entity.Models;
 
-public class Author
+public class Author : BaseEntity
 {
-    public Guid Id { get; set; }
-
     public string FirstName { get; set; } = null!;
 
     public string LastName { get; set; } = null!;
