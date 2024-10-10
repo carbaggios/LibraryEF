@@ -1,6 +1,9 @@
 
 using Entity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using WebApi.Interfaces;
 using WebApi.Repositories;
 using WebApi.Services;
@@ -25,9 +28,23 @@ namespace WebApi
             });
 
             builder.Services.AddScoped<IAccountService, AccountService>();
-            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<IHashService, HashService>();
+            builder.Services.AddScoped<ITokenService, TokenService>();
 
+            builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
 
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(opt =>
+                    {
+                        opt.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateLifetime = true,
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey"]!))
+                        };
+                    });
             var app = builder.Build();
 
             app.UseCors(opt => opt.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200"));
@@ -41,6 +58,7 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

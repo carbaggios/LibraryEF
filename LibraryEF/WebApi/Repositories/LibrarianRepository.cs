@@ -5,20 +5,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Repositories
 {
-    internal class AccountRepository : IAccountRepository
+    internal class LibrarianRepository : ILibrarianRepository
     {
         private readonly LibraryContext _libraryContext;
 
-        public AccountRepository(LibraryContext libraryContext)
+        public LibrarianRepository(LibraryContext libraryContext)
         {
             this._libraryContext = libraryContext;
         }
 
-        public async Task<Librarian> AddLibrarian(Librarian account, CancellationToken cancellationToken = default)
+        public async Task<Librarian> AddLibrarian(Librarian librarian, CancellationToken cancellationToken = default)
         {
-            await _libraryContext.AddAsync(account, cancellationToken);
+            await _libraryContext.AddAsync(librarian, cancellationToken);
             await _libraryContext.SaveChangesAsync(cancellationToken);
-            return account;
+            return librarian;
         }
 
         public async Task<Librarian?> GetLibrarian(string login, CancellationToken cancellationToken = default)

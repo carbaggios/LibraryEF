@@ -2,9 +2,9 @@
 
 namespace WebApi.Interfaces
 {
-    public interface IAccountRepository
+    public interface ILibrarianRepository
     {
-        Task<Librarian> AddLibrarian(Librarian account, CancellationToken cancellationToken = default);
+        Task<Librarian> AddLibrarian(Librarian librarian, CancellationToken cancellationToken = default);
 
         Task<Librarian?> GetLibrarian(string login, CancellationToken cancellationToken = default);
         //Task<Reader?> GetReader(string login, CancellationToken cancellationToken = default);

@@ -83,13 +83,15 @@ public class LibraryContext : DbContext
         modelBuilder.Entity<Librarian>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("pk_Librarian");
+            entity.HasIndex(e => e.Login).IsUnique();
 
             entity.ToTable("Librarian");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Email).HasMaxLength(320);
             entity.Property(e => e.Login).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.PasswordHash);
+            entity.Property(e => e.PasswordSalt);
         });
 
         modelBuilder.Entity<PublishingType>(entity =>
@@ -114,7 +116,8 @@ public class LibraryContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(100);
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.Login).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.PasswordHash);
+            entity.Property(e => e.PasswordSalt);
 
             entity.HasOne(d => d.DocType).WithMany(p => p.Readers)
                 .HasForeignKey(d => d.DocTypeId)

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Dtos;
+using WebApi.Interfaces;
 
 namespace WebApi.Controllers
 {
@@ -47,8 +49,8 @@ namespace WebApi.Controllers
         {
             try
             {
-                var accounts = await _accountService.GetUsers(cancellationToken);
-                return Ok(accounts.Select(acc => new AccountDto(acc.Id, acc.Login, acc.Role)));
+                var accounts = await _accountService.GetLibrarians(cancellationToken);
+                return Ok(accounts.Select(acc => new AccountDto(acc.Id, acc.Login, acc.Email)));
             }
             catch
             {

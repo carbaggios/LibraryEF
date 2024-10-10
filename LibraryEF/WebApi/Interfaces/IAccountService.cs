@@ -10,6 +10,6 @@ namespace WebApi.Interfaces
 
         Task<string> Login(LoginDto loginDto, CancellationToken cancellationToken);
 
-        //Task<List<UserAccount>> GetUsers(CancellationToken cancellationToken);
+        Task<List<Librarian>> GetLibrarians(CancellationToken cancellationToken);
     }
 }
