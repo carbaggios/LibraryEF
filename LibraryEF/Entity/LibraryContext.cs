@@ -27,6 +27,8 @@ public class LibraryContext : DbContext
 
     public DbSet<Reader> Readers { get; set; }
 
+    public DbSet<LendBook> LendBooks { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=Library;Integrated Security=True;Encrypt=False");
@@ -46,6 +48,7 @@ public class LibraryContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(100);
             entity.Property(e => e.LastName).HasMaxLength(100);
             entity.Property(e => e.MiddleName).HasMaxLength(100);
+            entity.Property(e => e.BirthDay);
         });
 
         modelBuilder.Entity<Book>(entity =>
@@ -122,6 +125,28 @@ public class LibraryContext : DbContext
             entity.HasOne(d => d.DocType).WithMany(p => p.Readers)
                 .HasForeignKey(d => d.DocTypeId)
                 .HasConstraintName("fk_ReaderDocType");
+        });
+
+        modelBuilder.Entity<LendBook>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("pk_LendBook");
+
+            entity.ToTable("LendBook");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.TermLendDays);
+            entity.Property(e => e.TakenDate);
+            entity.Property(e => e.ReturnDate);
+
+            entity.HasOne(d => d.Book).WithMany(p => p.LendBooks)
+                .HasForeignKey(d => d.BookId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_LendBookBook");
+
+            entity.HasOne(d => d.Reader).WithMany(p => p.LendBooks)
+                .HasForeignKey(d => d.ReaderId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_LendBookReader");
         });
 
         //OnModelCreatingPartial(modelBuilder);

@@ -27,7 +27,7 @@ namespace WebApi.Services
             {
                 new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.NameId, librarian.Login),
 
-                //new Claim(ClaimTypes.Role, account.Role.ToString())
+                new Claim(ClaimTypes.Email, librarian.Email)
             };
 
             var descr = new SecurityTokenDescriptor

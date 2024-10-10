@@ -48,7 +48,7 @@ namespace WebApi.Services
 
             var hashResult = hashService.GetHash(loginDto.Password, librarian.PasswordSalt);
 
-            if (librarian.PasswordHash!.SequenceEqual(hashResult.hash))
+            if (!librarian.PasswordHash!.SequenceEqual(hashResult.hash))
             {
                 throw new InvalidOperationException("Incorrect password.");
             }

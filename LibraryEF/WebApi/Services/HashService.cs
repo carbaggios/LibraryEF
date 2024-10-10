@@ -1,6 +1,7 @@
 ﻿using WebApi.Interfaces;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebApi.Services
 {

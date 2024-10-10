@@ -12,4 +12,5 @@ public class Reader : BaseUser
 
     public string? LastName { get; set; }
 
+    public virtual ICollection<LendBook> LendBooks { get; set; } = new List<LendBook>();
 }
