@@ -41,5 +41,28 @@ namespace WebApi.Services
             var token = handler.CreateToken(descr);
             return handler.WriteToken(token);
         }
+
+        public string GetToken(Reader reader)
+        {
+            var signature = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+            var claims = new List<Claim>()
+            {
+                new Claim(Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames.NameId, reader.Login),
+
+                new Claim(ClaimTypes.Email, reader.Email)
+            };
+
+            var descr = new SecurityTokenDescriptor
+            {
+                SigningCredentials = signature,
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+            };
+
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.CreateToken(descr);
+            return handler.WriteToken(token);
+        }
     }
 }

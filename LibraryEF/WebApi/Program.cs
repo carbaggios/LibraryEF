@@ -28,10 +28,14 @@ namespace WebApi
             });
 
             builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IBookService, BookService>();
             builder.Services.AddScoped<IHashService, HashService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
 
             builder.Services.AddScoped<ILibrarianRepository, LibrarianRepository>();
+            builder.Services.AddScoped<IReaderRepository, ReaderRepository>();
+            builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<ILendBookRepository, LendBookRepository>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(opt =>

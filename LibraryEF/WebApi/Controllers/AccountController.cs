@@ -18,12 +18,25 @@ namespace WebApi.Controllers
             _accountService = accountService;
         }
 
-        [HttpPost("register")]
-        public async Task<ActionResult<LoginDto>> Register([FromBody] RegisterDto registerDto, CancellationToken cancellationToken)
+        [HttpPost("RegisterReader")]
+        public async Task<ActionResult<LoginDto>> RegisterReader([FromBody] RegisterDto registerDto, CancellationToken cancellationToken)
         {
             try
             {
-                return Ok(await _accountService.Register(registerDto, cancellationToken));
+                return Ok(await _accountService.RegisterReader(registerDto, cancellationToken));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("RegisterLibrarian")]
+        public async Task<ActionResult<LoginDto>> RegisterLibrarian([FromBody] RegisterDto registerDto, CancellationToken cancellationToken)
+        {
+            try
+            {
+                return Ok(await _accountService.RegisterLibrarian(registerDto, cancellationToken));
             }
             catch
             {
@@ -44,12 +57,26 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet("users")]
-        public async Task<ActionResult> GetUsers(CancellationToken cancellationToken)
+        [HttpGet("librarians")]
+        public async Task<ActionResult> GetLibrarians(CancellationToken cancellationToken)
         {
             try
             {
                 var accounts = await _accountService.GetLibrarians(cancellationToken);
+                return Ok(accounts.Select(acc => new AccountDto(acc.Id, acc.Login, acc.Email)));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("readers")]
+        public async Task<ActionResult> GetReaders(CancellationToken cancellationToken)
+        {
+            try
+            {
+                var accounts = await _accountService.GetReaders(cancellationToken);
                 return Ok(accounts.Select(acc => new AccountDto(acc.Id, acc.Login, acc.Email)));
             }
             catch

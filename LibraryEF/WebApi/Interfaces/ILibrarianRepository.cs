@@ -7,7 +7,6 @@ namespace WebApi.Interfaces
         Task<Librarian> AddLibrarian(Librarian librarian, CancellationToken cancellationToken = default);
 
         Task<Librarian?> GetLibrarian(string login, CancellationToken cancellationToken = default);
-        //Task<Reader?> GetReader(string login, CancellationToken cancellationToken = default);
 
         Task<List<Librarian>> GetLibrarians(CancellationToken cancellationToken);
     }
