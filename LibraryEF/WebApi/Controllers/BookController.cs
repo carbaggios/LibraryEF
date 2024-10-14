@@ -56,7 +56,7 @@ namespace WebApi.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost("find")]
-        public async Task<ActionResult> FindBooksByName(string filter, CancellationToken cancellationToken)
+        public async Task<ActionResult> FindBooksByName([FromBody] string filter, CancellationToken cancellationToken)
         {
             try
             {
