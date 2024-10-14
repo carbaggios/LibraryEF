@@ -1,9 +1,7 @@
-﻿namespace Repository;
+﻿namespace Entity.Models;
 
-public class Book
+public class Book : BaseEntity
 {
-    public Guid Id { get; set; }
-
     public Guid AuthorId { get; set; }
 
     public string Name { get; set; } = null!;
@@ -18,7 +16,11 @@ public class Book
 
     public string? PublishingCity { get; set; }
 
+    public int TermLendDays { get; set; }
+
     public virtual Author Author { get; set; } = null!;
 
     public virtual PublishingType? PublishingType { get; set; }
+
+    public virtual ICollection<LendBook> LendBooks { get; set; } = new List<LendBook>();
 }

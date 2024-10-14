@@ -1,9 +1,7 @@
-﻿namespace Repository;
+﻿namespace Entity.Models;
 
-public class DocType
+public class DocType : BaseEntity
 {
-    public Guid Id { get; set; }
-
     public string Name { get; set; } = null!;
 
     public virtual ICollection<Reader> Readers { get; set; } = new List<Reader>();

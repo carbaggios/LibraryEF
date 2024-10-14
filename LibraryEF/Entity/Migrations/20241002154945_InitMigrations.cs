@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Repository.Migrations
+namespace Entity.Migrations
 {
     /// <inheritdoc />
-    public partial class InitMigration : Migration
+    public partial class InitMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -69,13 +69,13 @@ namespace Repository.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "(newid())"),
-                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false),
+                    DocTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DocNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    DocTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    DocNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    Login = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(320)", maxLength: 320, nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,4 +1,4 @@
-﻿using Repository;
+﻿using Entity;
 
 namespace LibraryEF
 {
@@ -55,7 +55,8 @@ namespace LibraryEF
                 message = $"The Librarian does not exists with login \"{login}\"";
                 return false;
             }
-            else if (!password.Equals(librarian.Password))
+            //TODO: revrite librarian.Password to PasswordHash
+            else if (!password.Equals(librarian.PasswordHash)) 
             {
                 message = "Incorrect password. Please try again";
                 return false;
